@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<script src="js/jquery-1.4.4.min.js"></script>
+
+<!--
+		<script>
+		// $.fn.scianimator.defaults.debug = true;
+		// $.fn.scianimator.defaults.theme = 'light';
+		// $.fn.scianimator.defaults.controls = 'none';
+		</script>
+-->
+
+<!--
+	<script src="js/jquery.scianimator.min.js"></script>
+-->
+<!--
+	<link rel="stylesheet" href="css/reset.css" />
+	<link rel="stylesheet" href="css/styles.css" />
+	<link rel="stylesheet" href="css/scianimator.css" />
+-->
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({ TeX: { extensions: ["color.js"] }});
+</script>
+
+
+
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					Slide 1
+<!--<div class="scianimator"><div id="Rplot" style="display: inline-block;"></div></div>-->
+<!--
+<div class="scianimator"><div id="Rplot"></div></div>
+	<script src="js/Rplot.js"></script>
+-->
+$$
+\boldsymbol{w}_{n}=\boldsymbol{w}_{n-1}\frac{\sum_{i=1}^{m}\mathrm{I}_{\epsilon_{n}}(\boldsymbol{x}_{n-1}^{(i)})}{\sum_{i=1}^{m}\mathrm{I}_{\epsilon_{n-1}}(\boldsymbol{x}_{n-1}^{(i)})}
+$$
+
+$$
+\definecolor{energy}{RGB}{114,0,172}
+\boldsymbol{w}_{n}=\color{energy}\boldsymbol{w}_{n-1}\color{white}\frac{\sum_{i=1}^{m}\mathrm{I}_{\epsilon_{n}}(\boldsymbol{x}_{n-1}^{(i)})}{\sum_{i=1}^{m}\mathrm{I}_{\epsilon_{n-1}}(\boldsymbol{x}_{n-1}^{(i)})}
+$$
+
+$$
+\color{yellow} A = \textcolor{blue}{B} \mathbin{\textcolor{red}{-}} \textcolor{green}{C}
+$$
+				</section>
+
+				<section>Slide 2<br>
+				<video width="600" height="600" controls>
+<source src="video/animation.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				math: {
+			mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+			config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+	},
+
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+						{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+				{ src: 'plugin/math/math.js', async: true }
+				]
+			});
+
+
+		</script>
+	</body>
+</html>
