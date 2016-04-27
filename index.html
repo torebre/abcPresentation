@@ -1,20 +1,21 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+	<title>reveal.js</title>
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/white.css">
 
-		<script src="js/jquery-1.4.4.min.js"></script>
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
 
-<!--
+	<script src="js/jquery-1.4.4.min.js"></script>
+
+	<!--
 		<script>
 		// $.fn.scianimator.defaults.debug = true;
 		// $.fn.scianimator.defaults.theme = 'light';
@@ -22,89 +23,157 @@
 		</script>
 -->
 
-<!--
+	<!--
 	<script src="js/jquery.scianimator.min.js"></script>
 -->
-<!--
+	<!--
 	<link rel="stylesheet" href="css/reset.css" />
 	<link rel="stylesheet" href="css/styles.css" />
 	<link rel="stylesheet" href="css/scianimator.css" />
 -->
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
 
-		<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({ TeX: { extensions: ["color.js"] }});
-</script>
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({ TeX: { extensions: ["color.js"] }});
+	</script>
 
+</head>
 
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h2>Sequential Monte Carlo in Approximate Bayesian Computation</h2>
+			</section>
 
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
+			<section>
+				<h2>Bayesian Inference</h2>
+
+				<div style="position:relative; width:640px; height:480px; margin:0 auto;">
+					<div class="fragment" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="0">$$p(\boldsymbol{\theta}|\boldsymbol{y})\propto p(\boldsymbol{y}|\boldsymbol{\theta})p(\boldsymbol{\theta})$$</div>
+					<div class="fragment fade-in" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="1">
+						<div class="fragment fade-out" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="2">$$p(\boldsymbol{\theta}|\boldsymbol{y})\propto \color{red} p(\boldsymbol{y}|\boldsymbol{\theta})\color{black}p(\boldsymbol{\theta})$$</div>
+					</div>
+					<div class="fragment fade-in" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="2">$$p(\boldsymbol{\theta}|\boldsymbol{y})\propto \color{red} p(\boldsymbol{y}|\boldsymbol{\theta})\color{blue}p(\boldsymbol{\theta})$$</div>
+
+				</div>
+				<div class="fragment" data-fragment-index="1" style="color:red;">Likelihood</div>
+				<div class="fragment" data-fragment-index="2" style="color:blue;">Prior</div>
+			</section>
+
+			<section>
+				<h2>Approximate Bayesian Computation</h2>
+				<ul>
+					<li class="fragment">Approximation to distribution without evaluating likelihood</li>
+					<li class="fragment">Likelihood-free methods</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>Problems</h2>
+				<ul>
+					<li class="fragment">Finding statistics
+						<ul>
+							<li class="fragment">Ad-hoc</li>
+							<li class="fragment">Not focus here</li>
+						</ul>
+					</li>
+
+					<li class="fragment">Computational resources
+						<ul>
+							<li class="fragment">Method we present here requires many samples from approximation to likelihood</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>Sequential Monte Carlo</h2>
+			</section>
+
+			<section>
 				<section>
-					Slide 1
-<!--<div class="scianimator"><div id="Rplot" style="display: inline-block;"></div></div>-->
-<!--
-<div class="scianimator"><div id="Rplot"></div></div>
-	<script src="js/Rplot.js"></script>
--->
-$$
-\boldsymbol{w}_{n}=\boldsymbol{w}_{n-1}\frac{\sum_{i=1}^{m}\mathrm{I}_{\epsilon_{n}}(\boldsymbol{x}_{n-1}^{(i)})}{\sum_{i=1}^{m}\mathrm{I}_{\epsilon_{n-1}}(\boldsymbol{x}_{n-1}^{(i)})}
-$$
-
-$$
-\definecolor{energy}{RGB}{114,0,172}
-\boldsymbol{w}_{n}=\color{energy}\boldsymbol{w}_{n-1}\color{white}\frac{\sum_{i=1}^{m}\mathrm{I}_{\epsilon_{n}}(\boldsymbol{x}_{n-1}^{(i)})}{\sum_{i=1}^{m}\mathrm{I}_{\epsilon_{n-1}}(\boldsymbol{x}_{n-1}^{(i)})}
-$$
-
-$$
-\color{yellow} A = \textcolor{blue}{B} \mathbin{\textcolor{red}{-}} \textcolor{green}{C}
-$$
+					<h2>Weight degeneracy</h2>
+					<ul>
+						<li class="fragment">Weights will spread out</li>
+						<li class="fragment">Small number of particles can get most of the weight</li>
+					</ul>
 				</section>
+				<section>
+					<video width="600" height="600" controls>
+						<source src="video/weight_plot_resample0.mp4" type="video/mp4"> Your browser does not support the video tag.
+					</video>
+				</section>
+			</section>
 
-				<section>Slide 2<br>
-				<video width="600" height="600" controls>
-<source src="video/animation.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>
-</section>
-			</div>
+			<section>
+				<section>
+					<h2>Possible remedy</h2>
+					<ul>
+						<li class="fragment">Introduce resampling step</li>
+						<li class="fragment">Triggered by ESS</li>
+						<li class="fragment">Our definition:$$\frac{1}{\sum_{i=1}^{n}w_{i}(\boldsymbol{x})^{2}}$$</li>
+					</ul>
+				</section>
+				<section>
+					<section>
+						<video width="600" height="600" controls>
+							<source src="video/weight_plot_resample05.mp4" type="video/mp4"> Your browser does not support the video tag.
+						</video>
+					</section>
+				</section>
+			</section>
 		</div>
+	</div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
 
-		<script>
-			// More info https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				history: true,
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			history: true,
 
-				math: {
-			mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
-			config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
-	},
-
-
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-						{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-				{ src: 'plugin/math/math.js', async: true }
-				]
-			});
+			math: {
+				mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+				config: 'TeX-AMS_HTML-full' // See http://docs.mathjax.org/en/latest/config-files.html
+			},
 
 
-		</script>
-	</body>
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+				src: 'plugin/markdown/marked.js'
+			}, {
+				src: 'plugin/markdown/markdown.js'
+			}, {
+				src: 'plugin/notes/notes.js',
+				async: true
+			}, {
+				src: 'plugin/highlight/highlight.js',
+				async: true,
+				callback: function() {
+					hljs.initHighlightingOnLoad();
+				}
+			}, {
+				src: 'plugin/math/math.js',
+				async: true
+			},
+			// Zoom in and out with Alt+click
+        { src: 'plugin/zoom-js/zoom.js', async: true }
+			]
+
+	// 		minScale: 0.2,
+	// maxScale: 3
+		});
+	</script>
+</body>
+
 </html>
