@@ -58,15 +58,49 @@
 				<h2>Bayesian Inference</h2>
 
 				<div style="position:relative; width:640px; height:480px; margin:0 auto;">
-					<div class="fragment" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="0">$$p(\boldsymbol{\theta}|\boldsymbol{y})\propto p(\boldsymbol{y}|\boldsymbol{\theta})p(\boldsymbol{\theta})$$</div>
-					<div class="fragment fade-in" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="1">
-						<div class="fragment fade-out" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="2">$$p(\boldsymbol{\theta}|\boldsymbol{y})\propto \color{red} p(\boldsymbol{y}|\boldsymbol{\theta})\color{black}p(\boldsymbol{\theta})$$</div>
-					</div>
-					<div class="fragment fade-in" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="2">$$p(\boldsymbol{\theta}|\boldsymbol{y})\propto \color{red} p(\boldsymbol{y}|\boldsymbol{\theta})\color{blue}p(\boldsymbol{\theta})$$</div>
 
+					<div class="fragment" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="0">
+					<ul>
+						<li>$p(\boldsymbol{\theta}|\boldsymbol{y})\propto p(\boldsymbol{y}|\boldsymbol{\theta})p(\boldsymbol{\theta})$</li>
+	<li>$\boldsymbol{\theta}$ are parameters of some model</li>
+	<li>$\boldsymbol{y}$ is observed data
+</ul>
+					<div class="fragment fade-in" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="1">
+						<div class="fragment fade-out" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="2">
+							<ul>
+							<li>$p(\boldsymbol{\theta}|\boldsymbol{y})\propto \color{red} p(\boldsymbol{y}|\boldsymbol{\theta})\color{black}p(\boldsymbol{\theta})$</li>
+							<li></li>
+							<li></li>
+							<li><span style="color:red">Likelihood</span></li>
+						</ul>
+							</div>
+					</div>
+
+					<div class="fragment fade-in" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="2">
+						<ul>
+						<li>$p(\boldsymbol{\theta}|\boldsymbol{y})\propto \color{red} p(\boldsymbol{y}|\boldsymbol{\theta})\color{blue}p(\boldsymbol{\theta})$</li>
+						<li></li>
+						<li></li>
+						<li><span style="color:red">Likelihood</span></li>
+						<li><span style="color:blue">Prior</span>: Prior knowledge</li>
+					</ul>
+						</div>
 				</div>
-				<div class="fragment" data-fragment-index="1" style="color:red;">Likelihood</div>
-				<div class="fragment" data-fragment-index="2" style="color:blue;">Prior</div>
+			</section>
+
+			<section>
+				<h2>Posterior</h2>
+				<ul>
+					<li class="fragment">Potentially difficult to find distribution</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>MCMC methods</h2>
+				<ul>
+					<li class="fragment">Popular method for sampling from arbitrary distribution</li>
+					<li class="fragment">Need to evaluate likelihood</li>
+				</ul>
 			</section>
 
 			<section>
@@ -97,6 +131,23 @@
 
 			<section>
 				<h2>Sequential Monte Carlo</h2>
+				<ul>
+					<li class="fragment">Idea is to split problem of sampling $w(\boldsymbol{x})=\frac{p(\boldsymbol{x})}{g(\boldsymbol{x})}$ into substeps</li>
+					<li class="fragment">$w(\boldsymbol{x})=\frac{p(x_{1})p(x_{2}|x_{1})p(x_{3}|x_{1},x_{2})...p(x_{k}|x_{1},...,x_{k-1})}{g(x_{1})g(x_{2}|x_{1})g(x_{3}|x_{1},x_{2})...g(x_{k}|x_{1},...,x_{k-1})}$</li>
+				</ul>
+			</section>
+
+			<section>
+
+
+			</section>
+
+			<section data-markdown>
+			    <script type="text/template">
+			        ## Test
+							- Test1 <!-- .element: class="fragment" data-fragment-index="1" -->
+							- Test2 <!-- .element: class="fragment" data-fragment-index="2" -->
+			    </script>
 			</section>
 
 			<section>
@@ -104,7 +155,7 @@
 					<h2>Weight degeneracy</h2>
 					<ul>
 						<li class="fragment">Weights will spread out</li>
-						<li class="fragment">Small number of particles can get most of the weight</li>
+						<li class="fragment">Small number of particles can dominate</li>
 					</ul>
 				</section>
 				<section>
@@ -131,6 +182,13 @@
 					</section>
 				</section>
 			</section>
+
+			<section>
+				<h2>Resampling schedule</h2>
+				<div class="fragment">$\mathrm{ESS}(w(\boldsymbol{x}_{i}))=\alpha\mathrm{ESS}(w(\boldsymbol{x}_{i-1}))$</div>
+				<img src="figures/epsilon_candidate_plot_1000_09_toy_example.png" class="fragment"/>
+			</section>
+
 		</div>
 	</div>
 
