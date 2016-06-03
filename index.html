@@ -178,124 +178,143 @@
 			</section>
 
 			<section>
-				<h1>Examples</h1>
-			</section>
-
-			<section>
 				<section>
-					<h2>Simple mixture</h2>
+					<h2>Algorithm</h2>
+				</section>
+
+				<section>
+					<!-- <img width="736" height="727" src="figures/smc_algorithm1.png"/> -->
+					<img width="589" height="582" src="figures/smc_algorithm1.png" />
+				</section>
+
+				<section>
+					<img src="figures/smc_algorithm2.png" />
+				</section>
+
+				<section>
+					<img src="figures/smc_algorithm3.png" />
+				</section>
+</section>
+				<section>
+					<h1>Examples</h1>
+				</section>
+
+				<section>
+					<section>
+						<h2>Simple mixture</h2>
+						<ul>
+							<li>$p(\theta|x)\sim(\mathrm{N}(\theta,1)+\mathrm{N}(\theta,\frac{1}{100}))\mathrm{I}_{[-10,10]}(\theta)$</li>
+							<li class="fragment">$d(x,y)=|x-y|$</li>
+							<li class="fragment">Single observation at $y=0$</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>No replicates</h3>
+						<video width="600" height="600" controls>
+							<source src="video/configuration1_replicates.mp4" type="video/mp4">Your browser does not support the video tag.
+						</video>
+					</section>
+
+					<section>
+						<h3>5 replicates</h3>
+						<video width="600" height="600" controls>
+							<source src="video/configuration2_replicates.mp4" type="video/mp4">Your browser does not support the video tag.
+						</video>
+					</section>
+
+					<section>
+						<h3>20 replicates</h3>
+						<video width="600" height="600" controls>
+							<source src="video/configuration3_replicates.mp4" type="video/mp4">Your browser does not support the video tag.
+						</video>
+					</section>
+				</section>
+
+
+				<section>
+
+					<section>
+						<h2>MA(2) process</h2>
+						<ul>
+							<li>Example used in Marin et. al. (2012)</li>
+							<li class="fragment">$z_{t}=a_{t}-\theta_{1}a_{t-1}-\theta_{2}a_{t-2}$</li>
+							<li class="fragment">The task is to provide estimates for $\boldsymbol{\theta}$</li>
+							<li class="fragment">Prior is chosen to be uniform on region that makes the process invertible</li>
+							<li class="fragment">There is a closed expression for the likelihood</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Setups</h2>
+						<ul>
+							<li>Trying two different statistics</li>
+							<li>In all cases a time series of length 100 is generated, and this is used as the observation</li>
+						</ul>
+
+					</section>
+
+					<section>
+						<h3>Autocovariance distance</h3>
+						<ul>
+							<li>Using measure of autocovariance as statistic</li>
+							<li class="fragment">$d=\frac{1}{n}\left(\sum_{i=2}^{n}\left(x_{i}x_{i-1}\right)-\sum_{i=2}^{n}\left(y_{i}y_{i-1}\right)\right)^{2}\\ +\frac{1}{n}\left(\sum_{i=2}^{n}\left(x_{i}x_{i-2}\right)-\sum_{i=2}^{n}\left(y_{i}y_{i-2}\right)\right)^{2}$
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Autocovariance distance</h3>
+						<video width="600" height="600" controls>
+							<source src="video/ma_autocovariance.mp4" type="video/mp4">Your browser does not support the video tag.
+						</video>
+					</section>
+				</section>
+
+
+				<section>
+					<h3>Raw distance function</h3>
 					<ul>
-						<li>$p(\theta|x)\sim(\mathrm{N}(\theta,1)+\mathrm{N}(\theta,\frac{1}{100}))\mathrm{I}_{[-10,10]}(\theta)$</li>
-						<li class="fragment">$d(x,y)=|x-y|$</li>
-						<li class="fragment">Single observation at $y=0$</li>
+						<li>$d=\sum_{i=1}^{n}\left(x_{i}-y_{i}\right)^{2}$</li>
 					</ul>
 				</section>
 
 				<section>
-					<h3>No replicates</h3>
-					<video width="600" height="600" controls>
-						<source src="video/configuration1_replicates.mp4" type="video/mp4">Your browser does not support the video tag.
-					</video>
-				</section>
+					<section>
+						<h3>Raw distance function</h3>
+						<ul>
+							<li>Same settings as in previous example</li>
+						</ul>
+						<video width="750" height="500" controls>
+							<source src="video/ma_raw_distance.mp4" type="video/mp4">Your browser does not support the video tag.
+						</video>
+					</section>
 
-				<section>
-					<h3>5 replicates</h3>
-					<video width="600" height="600" controls>
-						<source src="video/configuration2_replicates.mp4" type="video/mp4">Your browser does not support the video tag.
-					</video>
-				</section>
+					<section>
+						<h3>What happens when it gets stuck?</h3>
+						<div class="fragment">
+							Note: Data from a different example
+							<img src="figures/epsilon_candidate_plot.png" />
+							<img src="figures/distance_to_epsilon.png" />
+						</div>
+					</section>
 
-				<section>
-					<h3>20 replicates</h3>
-					<video width="600" height="600" controls>
-						<source src="video/configuration3_replicates.mp4" type="video/mp4">Your browser does not support the video tag.
-					</video>
-				</section>
-			</section>
+					<section>
+						<h3>Raw distance function</h3>
+						<ul>
+							<li>$\alpha=0.99$</li>
+						</ul>
+						<br/>
 
+						<video width="750" height="500" controls>
+							<source src="video/ma_raw_distance2.mp4" type="video/mp4">Your browser does not support the video tag.
+						</video>
 
-			<section>
-
-				<section>
-					<h2>MA(2) process</h2>
-					<ul>
-						<li>Example used in Marin et. al. (2012)</li>
-						<li class="fragment">$z_{t}=a_{t}-\theta_{1}a_{t-1}-\theta_{2}a_{t-2}$</li>
-						<li class="fragment">The task is to provide estimates for $\boldsymbol{\theta}$</li>
-						<li class="fragment">Prior is chosen to be uniform on region that makes the process invertible</li>
-						<li class="fragment">There is a closed expression for the likelihood</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Setups</h2>
-					<ul>
-						<li>Trying two different statistics</li>
-						<li>In all cases a time series of length 100 is generated, and this is used as the observation</li>
-					</ul>
+					</section>
 
 				</section>
 
-				<section>
-<h3>Autocovariance distance</h3>
-					<ul>
-						<li>Using measure of autocovariance as statistic</li>
-						<li class="fragment">$d=\frac{1}{n}\left(\sum_{i=2}^{n}\left(x_{i}x_{i-1}\right)-\sum_{i=2}^{n}\left(y_{i}y_{i-1}\right)\right)^{2}+\frac{1}{n}\left(\sum_{i=2}^{n}\left(x_{i}x_{i-2}\right)-\sum_{i=2}^{n}\left(y_{i}y_{i-2}\right)\right)^{2}$</li>
-					</ul>
-				</section>
-
-				<section>
-<h3>Autocovariance distance</h3>
-					<video width="600" height="600" controls>
-						<source src="video/ma_autocovariance.mp4" type="video/mp4">Your browser does not support the video tag.
-					</video>
-				</section>
-</section>
-
-
-<section>
-	<h3>Raw distance function</h3>
-	<ul>
-		<li>$d=\sum_{i=1}^{n}\left(x_{i}-y_{i}\right)^{2}$</li>
-	</ul>
-</section>
-
-<section>
-<section>
-	<h3>Raw distance function</h3>
-	<ul>
-		<li>Same settings as in previous example</li>
-	</ul>
-					<video width="750" height="500" controls>
-						<source src="video/ma_raw_distance.mp4" type="video/mp4">Your browser does not support the video tag.
-					</video>
-</section>
-
-<section>
-	<h3>What happens when it gets stuck?</h3>
-	<div class="fragment">
-		Note: Data from a different example
-				<img src="figures/epsilon_candidate_plot.png" />
-				<img src="figures/distance_to_epsilon.png" />
-	</div>
-</section>
-
-<section>
-	<h3>Raw distance function</h3>
-	<ul>
-		<li>$\alpha=0.99$</li>
-	</ul>
-	<br/>
-
-					<video width="750" height="500" controls>
-						<source src="video/ma_raw_distance2.mp4" type="video/mp4">Your browser does not support the video tag.
-					</video>
-
-</section>
-
-			</section>
-
-			</div>
+				</div>
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
