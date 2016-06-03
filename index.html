@@ -43,32 +43,37 @@
 				<div style="position:relative; width:640px; height:480px; margin:0 auto;">
 
 					<div class="fragment" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="0">
-					<ul>
-						<li>$p(\boldsymbol{\theta}|\boldsymbol{y})\propto p(\boldsymbol{y}|\boldsymbol{\theta})p(\boldsymbol{\theta})$</li>
-	<li>$\boldsymbol{\theta}$ are parameters of some model</li>
-	<li>$\boldsymbol{y}$ is observed data
-</ul>
-					<div class="fragment fade-in" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="1">
-						<div class="fragment fade-out" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="2">
-							<ul>
-							<li>$p(\boldsymbol{\theta}|\boldsymbol{y})\propto \color{red} p(\boldsymbol{y}|\boldsymbol{\theta})\color{black}p(\boldsymbol{\theta})$</li>
-							<li></li>
-							<li></li>
-							<li><span style="color:red">Likelihood</span></li>
-						</ul>
-							</div>
-					</div>
-
-					<div class="fragment fade-in" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="2">
 						<ul>
-						<li>$p(\boldsymbol{\theta}|\boldsymbol{y})\propto \color{red} p(\boldsymbol{y}|\boldsymbol{\theta})\color{blue}p(\boldsymbol{\theta})$</li>
-						<li></li>
-						<li></li>
-						<li><span style="color:red">Likelihood</span></li>
-						<li><span style="color:blue">Prior</span>: Prior knowledge</li>
-					</ul>
+							<li>$p(\boldsymbol{\theta}|\boldsymbol{y})\propto p(\boldsymbol{y}|\boldsymbol{\theta})p(\boldsymbol{\theta})$</li>
+							<li>$\boldsymbol{\theta}$ are parameters of some model</li>
+							<li>$\boldsymbol{y}$ is observed data
+						</ul>
+						<div class="fragment fade-in" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="1">
+							<div class="fragment fade-out" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="2">
+								<ul>
+									<li>$p(\boldsymbol{\theta}|\boldsymbol{y})\propto \color{red} p(\boldsymbol{y}|\boldsymbol{\theta})\color{black}p(\boldsymbol{\theta})$</li>
+									<li></li>
+									<li></li>
+									<li>
+										<span style="color:red">Likelihood</span>
+									</li>
+								</ul>
+							</div>
 						</div>
-				</div>
+
+						<div class="fragment fade-in" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="2">
+							<ul>
+								<li>$p(\boldsymbol{\theta}|\boldsymbol{y})\propto \color{red} p(\boldsymbol{y}|\boldsymbol{\theta})\color{blue}p(\boldsymbol{\theta})$</li>
+								<li></li>
+								<li></li>
+								<li>
+									<span style="color:red">Likelihood</span>
+								</li>
+								<li>
+									<span style="color:blue">Prior</span>: Prior knowledge</li>
+							</ul>
+						</div>
+					</div>
 			</section>
 
 			<section>
@@ -121,19 +126,6 @@
 			</section>
 
 			<section>
-
-
-			</section>
-
-			<section data-markdown>
-			    <script type="text/template">
-			        ## Test
-							- Test1 <!-- .element: class="fragment" data-fragment-index="1" -->
-							- Test2 <!-- .element: class="fragment" data-fragment-index="2" -->
-			    </script>
-			</section>
-
-			<section>
 				<section>
 					<h2>Weight degeneracy</h2>
 					<ul>
@@ -167,51 +159,185 @@
 			</section>
 
 			<section>
-				<h2>Resampling schedule</h2>
-				<div class="fragment">$\mathrm{ESS}(w(\boldsymbol{x}_{i}))=\alpha\mathrm{ESS}(w(\boldsymbol{x}_{i-1}))$</div>
-				<img src="figures/epsilon_candidate_plot_1000_09_toy_example.png" class="fragment"/>
+				<h2>SMC in ABC</h2>
+				<ul>
+					<li class="fragment">Focus is on an algorithm developed by Del Moral et. al.</li>
+				</ul>
 			</section>
 
-		</div>
+			<section>
+				<ul>
+					<li class="fragment">Algorithm uses what is called an SMC sampler developed by Del Moral et. al.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>Resampling schedule</h2>
+				<div class="fragment">$\mathrm{ESS}(w(\boldsymbol{x}_{i}))=\alpha\mathrm{ESS}(w(\boldsymbol{x}_{i-1}))$</div>
+				<img src="figures/epsilon_candidate_plot_1000_09_toy_example.png" class="fragment" />
+			</section>
+
+			<section>
+				<h1>Examples</h1>
+			</section>
+
+			<section>
+				<section>
+					<h2>Simple mixture</h2>
+					<ul>
+						<li>$p(\theta|x)\sim(\mathrm{N}(\theta,1)+\mathrm{N}(\theta,\frac{1}{100}))\mathrm{I}_{[-10,10]}(\theta)$</li>
+						<li class="fragment">$d(x,y)=|x-y|$</li>
+						<li class="fragment">Single observation at $y=0$</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>No replicates</h3>
+					<video width="600" height="600" controls>
+						<source src="video/configuration1_replicates.mp4" type="video/mp4">Your browser does not support the video tag.
+					</video>
+				</section>
+
+				<section>
+					<h3>5 replicates</h3>
+					<video width="600" height="600" controls>
+						<source src="video/configuration2_replicates.mp4" type="video/mp4">Your browser does not support the video tag.
+					</video>
+				</section>
+
+				<section>
+					<h3>20 replicates</h3>
+					<video width="600" height="600" controls>
+						<source src="video/configuration3_replicates.mp4" type="video/mp4">Your browser does not support the video tag.
+					</video>
+				</section>
+			</section>
+
+
+			<section>
+
+				<section>
+					<h2>MA(2) process</h2>
+					<ul>
+						<li>Example used in Marin et. al. (2012)</li>
+						<li class="fragment">$z_{t}=a_{t}-\theta_{1}a_{t-1}-\theta_{2}a_{t-2}$</li>
+						<li class="fragment">The task is to provide estimates for $\boldsymbol{\theta}$</li>
+						<li class="fragment">Prior is chosen to be uniform on region that makes the process invertible</li>
+						<li class="fragment">There is a closed expression for the likelihood</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Setups</h2>
+					<ul>
+						<li>Trying two different statistics</li>
+						<li>In all cases a time series of length 100 is generated, and this is used as the observation</li>
+					</ul>
+
+				</section>
+
+				<section>
+<h3>Autocovariance distance</h3>
+					<ul>
+						<li>Using measure of autocovariance as statistic</li>
+						<li class="fragment">$d=\frac{1}{n}\left(\sum_{i=2}^{n}\left(x_{i}x_{i-1}\right)-\sum_{i=2}^{n}\left(y_{i}y_{i-1}\right)\right)^{2}+\frac{1}{n}\left(\sum_{i=2}^{n}\left(x_{i}x_{i-2}\right)-\sum_{i=2}^{n}\left(y_{i}y_{i-2}\right)\right)^{2}$</li>
+					</ul>
+				</section>
+
+				<section>
+<h3>Autocovariance distance</h3>
+					<video width="600" height="600" controls>
+						<source src="video/ma_autocovariance.mp4" type="video/mp4">Your browser does not support the video tag.
+					</video>
+				</section>
+</section>
+
+
+<section>
+	<h3>Raw distance function</h3>
+	<ul>
+		<li>$d=\sum_{i=1}^{n}\left(x_{i}-y_{i}\right)^{2}$</li>
+	</ul>
+</section>
+
+<section>
+<section>
+	<h3>Raw distance function</h3>
+	<ul>
+		<li>Same settings as in previous example</li>
+	</ul>
+					<video width="750" height="500" controls>
+						<source src="video/ma_raw_distance.mp4" type="video/mp4">Your browser does not support the video tag.
+					</video>
+</section>
+
+<section>
+	<h3>What happens when it gets stuck?</h3>
+	<div class="fragment">
+		Note: Data from a different example
+				<img src="figures/epsilon_candidate_plot.png" />
+				<img src="figures/distance_to_epsilon.png" />
 	</div>
+</section>
 
-	<script src="lib/js/head.min.js"></script>
-	<script src="js/reveal.js"></script>
+<section>
+	<h3>Raw distance function</h3>
+	<ul>
+		<li>$\alpha=0.99$</li>
+	</ul>
+	<br/>
 
-	<script>
-		// More info https://github.com/hakimel/reveal.js#configuration
-		Reveal.initialize({
-			history: true,
+					<video width="750" height="500" controls>
+						<source src="video/ma_raw_distance2.mp4" type="video/mp4">Your browser does not support the video tag.
+					</video>
 
-			math: {
-				mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
-				config: 'TeX-AMS_HTML-full' // See http://docs.mathjax.org/en/latest/config-files.html
-			},
+</section>
+
+			</section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				math: {
+					mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+					config: 'TeX-AMS_HTML-full' // See http://docs.mathjax.org/en/latest/config-files.html
+				},
 
 
-			// More info https://github.com/hakimel/reveal.js#dependencies
-			dependencies: [{
-				src: 'plugin/markdown/marked.js'
-			}, {
-				src: 'plugin/markdown/markdown.js'
-			}, {
-				src: 'plugin/notes/notes.js',
-				async: true
-			}, {
-				src: 'plugin/highlight/highlight.js',
-				async: true,
-				callback: function() {
-					hljs.initHighlightingOnLoad();
-				}
-			}, {
-				src: 'plugin/math/math.js',
-				async: true
-			},
-			// Zoom in and out with Alt+click
-        { src: 'plugin/zoom-js/zoom.js', async: true }
-			]
-		});
-	</script>
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [{
+						src: 'plugin/markdown/marked.js'
+					}, {
+						src: 'plugin/markdown/markdown.js'
+					}, {
+						src: 'plugin/notes/notes.js',
+						async: true
+					}, {
+						src: 'plugin/highlight/highlight.js',
+						async: true,
+						callback: function() {
+							hljs.initHighlightingOnLoad();
+						}
+					}, {
+						src: 'plugin/math/math.js',
+						async: true
+					},
+					// Zoom in and out with Alt+click
+					{
+						src: 'plugin/zoom-js/zoom.js',
+						async: true
+					}
+				]
+			});
+		</script>
 </body>
 
 </html>
