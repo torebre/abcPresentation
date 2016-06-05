@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-	<title>reveal.js</title>
+	<title>Sequential Monte Carlo in Approximate Bayesian Computation</title>
 
 	<link rel="stylesheet" href="css/reveal.css">
 	<link rel="stylesheet" href="css/theme/white.css">
@@ -67,7 +67,7 @@
 								<li></li>
 								<li></li>
 								<li>
-									<span style="color:red">Likelihood</span>
+									<span style="color:red">Likelihood</span>: Model of data
 								</li>
 								<li>
 									<span style="color:blue">Prior</span>: Prior knowledge</li>
@@ -79,24 +79,85 @@
 			<section>
 				<h2>Posterior</h2>
 				<ul>
-					<li class="fragment">Potentially difficult to find distribution</li>
+					<li class="fragment">Potentially difficult to evaluate</li>
+					<li class="fragment">Many methods exist for approximating a distribution</li>
 				</ul>
 			</section>
 
 			<section>
-				<h2>MCMC methods</h2>
+				<h2>Approximating the posterior</h2>
 				<ul>
-					<li class="fragment">Popular method for sampling from arbitrary distribution</li>
-					<li class="fragment">Need to evaluate likelihood</li>
+				<li class="fragment">MCMC methods</li>
+				<ul>
+					<li class="fragment">Popular for sampling from arbitrary distribution</li>
 				</ul>
+				<li class="fragment">Importance sampling</li>
+				<li class="fragment">Need to evaluate likelihood</li>
+			</ul>
 			</section>
 
 			<section>
 				<h2>Approximate Bayesian Computation</h2>
 				<ul>
 					<li class="fragment">Approximation to distribution without evaluating likelihood</li>
-					<li class="fragment">Likelihood-free methods</li>
+					<li class="fragment">Also known as Likelihood-free methods</li>
+					<li class="fragment">First used in population genetics</li>
+					<li class="fragment">Can be used where model is some stochastic process</li>
+					<li class="fragment">Need to be able to generate (many) samples from likelihood</li>
 				</ul>
+			</section>
+
+			<section>
+				<h2>Core idea</h2>
+				<ul>
+					<li class="fragment">Generate samples from the likelihood that lie close to the observed data</li>
+				</ul>
+			</section>
+
+			<section>
+				<ul>
+					<li class="fragment>">Introduce an auxillary variable $\boldsymbol{x}$</br>
+						$p(\boldsymbol{\theta},\boldsymbol{x}|\boldsymbol{y})\propto p(\boldsymbol{y}|\boldsymbol{x},\boldsymbol{\theta})p(\boldsymbol{x}|\boldsymbol{\theta})p(\boldsymbol{\theta})$</li>
+					<li class="fragment" data-fragment-index="1">Posterior can be retrieved by integrating out $\boldsymbol{x}$<br/>
+					$\begin{align*}p(\boldsymbol{\theta}|\boldsymbol{y}) & \propto\int_{Y}p(\boldsymbol{y}|\boldsymbol{x},\boldsymbol{\theta})p(\boldsymbol{x}|\boldsymbol{\theta})d\boldsymbol{x}p(\boldsymbol{\theta})\\ & =\int_{Y}p(\boldsymbol{y},\boldsymbol{x}|\boldsymbol{\theta})d\boldsymbol{x}p(\boldsymbol{\theta})\end{align*}$</li>
+				</ul>
+			</section>
+
+			<section>
+				<ul>
+					<li>If $p(\boldsymbol{y}|\boldsymbol{x},\boldsymbol{\theta})$ is defined to the Dirac-function with $\boldsymbol{x}=\boldsymbol{y}$<br>
+						$\begin{align}
+	p(\boldsymbol{\theta}|\boldsymbol{y}) & \propto\int_{Y}I(\boldsymbol{x}=\boldsymbol{y})p(\boldsymbol{x}|\boldsymbol{\theta})d\boldsymbol{x}p(\boldsymbol{\theta})\nonumber \\
+	 & =p(\boldsymbol{y}|\boldsymbol{\theta})p(\boldsymbol{\theta})
+	\end{align}$
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<ul>
+					<li>Would like to generate samples, $\boldsymbol{x}$, from the likelihood $p(\boldsymbol{x}|\boldsymbol{\theta})$ such that $\boldsymbol{x}=\boldsymbol{y}$</li>
+					<li class="fragment">Not feasible in practice</li>
+					<li class="fragment">Ease requirement $\boldsymbol{x}=\boldsymbol{y}$<br/>
+					$d(\boldsymbol{x},\boldsymbol{y})<\epsilon$
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<ul>
+					<li>Another relaxation of requirements</li>
+					<li class="fragment">Use statistics instead of data itself<br/>
+						 $d(S(\boldsymbol{x}),S(\boldsymbol{y}))<\epsilon$
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				 <ul>
+					<li>Early example from Marjoram et al. (2003)</li>
+				</ul>
+					<img width="846" height="613" src="figures/mcmc_in_abc.png" />
 			</section>
 
 			<section>
@@ -109,11 +170,41 @@
 						</ul>
 					</li>
 
+						<li class="fragment">Getting a good approximation to posterior<br>
+							$\epsilon \to 0$
+					</li>
+
 					<li class="fragment">Computational resources
 						<ul>
 							<li class="fragment">Method we present here requires many samples from approximation to likelihood</li>
 						</ul>
 					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>SMC in ABC</h2>
+				<ul>
+					<li class="fragment">Focus here is on an algorithm developed by Del Moral et. al. (2012)</li>
+					<li class="fragment">Algorithm uses what is called an SMC sampler developed by Del Moral et. al. (2006)</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>SMC sampler</h2>
+				<ul>
+				<li>Detour into Sequential Monte Carlo</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>Importance sampling</h2>
+				<ul>
+					<li>Target distribution, $p(\boldsymbol{x})$
+						<li class="fragment">Proposal distribution, $g(\boldsymbol{x})$<br/>
+							<img width="362" height="358" src="figures/targetAndProposalIllustration.png"/>
+						</li>
+					<li class="fragment">Generate weighted sample: $w(\boldsymbol{x})=\frac{p(\boldsymbol{x})}{g(\boldsymbol{x})}$</li>
 				</ul>
 			</section>
 
@@ -159,22 +250,26 @@
 			</section>
 
 			<section>
-				<h2>SMC in ABC</h2>
+				<h2>SMC sampler</h2>
 				<ul>
-					<li class="fragment">Focus is on an algorithm developed by Del Moral et. al.</li>
+					<li class="fragment">The main idea is that the underlying probability space is the same through the weight updates</li>
+					<li class="fragment">Achieved by using what is called backward kernels</li>
+					<li class="fragment">$w(\boldsymbol{x}_{i})=\frac{p_{i}(\boldsymbol{x}_{i})\Pi_{t=2}^{i}L(\boldsymbol{x}_{t},\boldsymbol{x}_{t-1})}{g_{1}(\boldsymbol{x}_{1})\Pi_{t=1}^{i-1}K(\boldsymbol{x}_{t},\boldsymbol{x}_{t+1})}$</li>
+				</ul>
+				</section>
+
+			<section>
+				<ul>
+					<li>A particle: $p_{\epsilon}(\boldsymbol{\theta},\{\boldsymbol{x}\}_{1:m}|\boldsymbol{y})$</li>
 				</ul>
 			</section>
 
 			<section>
 				<ul>
-					<li class="fragment">Algorithm uses what is called an SMC sampler developed by Del Moral et. al.</li>
+					<li>Metropolis-Hastings ratio:<br/>
+						$\min\left(1,\frac{\sum_{j=1}^{m}\mathrm{I}_{\epsilon,\boldsymbol{y}}(\boldsymbol{x}_{i+1}^{(j)})q_{i}(\boldsymbol{\theta}_{i+1},\boldsymbol{\theta}_{i})p(\boldsymbol{\theta}_{i+1})}{\sum_{j=1}^{m}\mathrm{I}_{\epsilon,\boldsymbol{y}}(\boldsymbol{x}_{i}^{(j)})q_{i}(\boldsymbol{\theta}_{i},\boldsymbol{\theta}_{i+1})p(\boldsymbol{\theta}_{i})}\right)$
+						</li>
 				</ul>
-			</section>
-
-			<section>
-				<h2>Resampling schedule</h2>
-				<div class="fragment">$\mathrm{ESS}(w(\boldsymbol{x}_{i}))=\alpha\mathrm{ESS}(w(\boldsymbol{x}_{i-1}))$</div>
-				<img src="figures/epsilon_candidate_plot_1000_09_toy_example.png" class="fragment" />
 			</section>
 
 			<section>
@@ -195,6 +290,13 @@
 					<img src="figures/smc_algorithm3.png" />
 				</section>
 </section>
+
+			<section>
+				<h2>Resampling schedule</h2>
+				<div class="fragment">$\mathrm{ESS}(w(\boldsymbol{x}_{i}))=\alpha\mathrm{ESS}(w(\boldsymbol{x}_{i-1}))$</div>
+				<img src="figures/epsilon_candidate_plot_1000_09_toy_example.png" class="fragment" />
+			</section>
+
 				<section>
 					<h1>Examples</h1>
 				</section>
@@ -231,9 +333,7 @@
 					</section>
 				</section>
 
-
 				<section>
-
 					<section>
 						<h2>MA(2) process</h2>
 						<ul>
@@ -251,7 +351,6 @@
 							<li>Trying two different statistics</li>
 							<li>In all cases a time series of length 100 is generated, and this is used as the observation</li>
 						</ul>
-
 					</section>
 
 					<section>
@@ -270,7 +369,6 @@
 						</video>
 					</section>
 				</section>
-
 
 				<section>
 					<h3>Raw distance function</h3>
@@ -355,7 +453,8 @@
 
 				math: {
 					mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
-					// mathjax: 'http://localhost:8000/js/MathJax/MathJax.js',
+					// Switch to the following line if off-line and need to render math symbols
+					//mathjax: 'http://localhost:8000/js/MathJax/MathJax.js',
 					config: 'TeX-AMS_HTML-full' // See http://docs.mathjax.org/en/latest/config-files.html
 				},
 
