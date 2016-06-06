@@ -38,6 +38,20 @@
 			</section>
 
 			<section>
+				<h2>Overview</h2>
+				<ul>
+					<li>Motivation</li>
+					<li>Approximate Bayesian Computation</li>
+					<li>SMC in ABC
+					<ul>
+						<li>Focus on algorithm developed by Del Moral et. al. (2012)</li>
+					</ul>
+					</li>
+					<li>Examples</li>
+				</ul>
+			</section>
+
+			<section>
 				<h2>Bayesian Inference</h2>
 
 				<div style="position:relative; width:640px; height:480px; margin:0 auto;">
@@ -108,56 +122,38 @@
 			</section>
 
 			<section>
-				<h2>Core idea</h2>
-				<ul>
-					<li class="fragment">Generate samples from the likelihood that lie close to the observed data</li>
-				</ul>
-			</section>
-
-			<section>
+				<h2>Illustration of core idea</h2>
 				<ul>
 					<li class="fragment>">Introduce an auxillary variable $\boldsymbol{x}$</br>
 						$p(\boldsymbol{\theta},\boldsymbol{x}|\boldsymbol{y})\propto p(\boldsymbol{y}|\boldsymbol{x},\boldsymbol{\theta})p(\boldsymbol{x}|\boldsymbol{\theta})p(\boldsymbol{\theta})$</li>
-					<li class="fragment" data-fragment-index="1">Posterior can be retrieved by integrating out $\boldsymbol{x}$<br/>
-					$\begin{align*}p(\boldsymbol{\theta}|\boldsymbol{y}) & \propto\int_{Y}p(\boldsymbol{y}|\boldsymbol{x},\boldsymbol{\theta})p(\boldsymbol{x}|\boldsymbol{\theta})d\boldsymbol{x}p(\boldsymbol{\theta})\\ & =\int_{Y}p(\boldsymbol{y},\boldsymbol{x}|\boldsymbol{\theta})d\boldsymbol{x}p(\boldsymbol{\theta})\end{align*}$</li>
-				</ul>
-			</section>
-
-			<section>
-				<ul>
-					<li>If $p(\boldsymbol{y}|\boldsymbol{x},\boldsymbol{\theta})$ is defined to the Dirac-function with $\boldsymbol{x}=\boldsymbol{y}$<br>
-						$\begin{align}
-	p(\boldsymbol{\theta}|\boldsymbol{y}) & \propto\int_{Y}I(\boldsymbol{x}=\boldsymbol{y})p(\boldsymbol{x}|\boldsymbol{\theta})d\boldsymbol{x}p(\boldsymbol{\theta})\nonumber \\
-	 & =p(\boldsymbol{y}|\boldsymbol{\theta})p(\boldsymbol{\theta})
-	\end{align}$
+					<li class="fragment" data-fragment-index="1">Assuming $p(\boldsymbol{y}|\boldsymbol{x},\boldsymbol{\theta})$ has point mass $\boldsymbol{x}=\boldsymbol{y}$<br/>
+						Posterior can be retrieved by integrating out $\boldsymbol{x}$<br/>
+					$\begin{align*}p(\boldsymbol{\theta}|\boldsymbol{y}) & \propto\int_{Y}p(\boldsymbol{y}|\boldsymbol{x},\boldsymbol{\theta})p(\boldsymbol{x}|\boldsymbol{\theta})d\boldsymbol{x}p(\boldsymbol{\theta})\\ & =p(\boldsymbol{y}|\boldsymbol{\theta})p(\boldsymbol{\theta})\end{align*}$
 					</li>
 				</ul>
 			</section>
 
 			<section>
+				<h2>Relaxation of requirements</h2>
 				<ul>
-					<li>Would like to generate samples, $\boldsymbol{x}$, from the likelihood $p(\boldsymbol{x}|\boldsymbol{\theta})$ such that $\boldsymbol{x}=\boldsymbol{y}$</li>
-					<li class="fragment">Not feasible in practice</li>
-					<li class="fragment">Ease requirement $\boldsymbol{x}=\boldsymbol{y}$<br/>
-					$d(\boldsymbol{x},\boldsymbol{y})<\epsilon$
-					</li>
+					<li>Generate samples from the likelihood that lie close to the observed data</li>
+					<li>$\boldsymbol{x}\approx\boldsymbol{y}$</li>
+					<li>Let $p(\boldsymbol{y}|\boldsymbol{x},\boldsymbol{\theta})$ be some kernel density function centered on $\boldsymbol{y}$</li>
+					<li>$d(\boldsymbol{x},\boldsymbol{y})<\epsilon$</li>
 				</ul>
 			</section>
 
 			<section>
 				<ul>
 					<li>Another relaxation of requirements</li>
-					<li class="fragment">Use statistics instead of data itself<br/>
+					<li>Use statistics instead of data itself<br/>
 						 $d(S(\boldsymbol{x}),S(\boldsymbol{y}))<\epsilon$
 					</li>
+					<li class="fragment">$S(\boldsymbol{x})\approx S(\boldsymbol{y})$ more likely than $\boldsymbol{x}\approx\boldsymbol{y}$</li>
+					<li class="fragment">Would like the statistics to be sufficient for the parameters being estimated<br/>
+$p(S(\boldsymbol{y})|\boldsymbol{\theta})p(\boldsymbol{\theta}) = p(\boldsymbol{y}|\boldsymbol{\theta})p(\boldsymbol{\theta})$
+					</li>
 				</ul>
-			</section>
-
-			<section>
-				 <ul>
-					<li>Early example from Marjoram et al. (2003)</li>
-				</ul>
-					<img width="846" height="613" src="figures/mcmc_in_abc.png" />
 			</section>
 
 			<section>
@@ -175,11 +171,15 @@
 					</li>
 
 					<li class="fragment">Computational resources
-						<ul>
-							<li class="fragment">Method we present here requires many samples from approximation to likelihood</li>
-						</ul>
 					</li>
 				</ul>
+			</section>
+
+			<section>
+				 <ul>
+					<li>Early example from Marjoram et al. (2003)</li>
+				</ul>
+					<img width="846" height="613" src="figures/mcmc_in_abc.png" />
 			</section>
 
 			<section>
@@ -209,10 +209,24 @@
 			</section>
 
 			<section>
+				<h2>Sequential Importance Resampling</h2>
+				<ol>
+					<li>Sample $\boldsymbol{x}_{1},...,\boldsymbol{x}_{n}$ using probability distribution for $g(\boldsymbol{x})$</li>
+					<li>Calculate the weights, $w(\boldsymbol{x}_{i})$</li>
+					<li>Resample from the set $\boldsymbol{x}_{1},...,\boldsymbol{x}_{n}$ $m$ times with probabilities for drawing $\boldsymbol{x}_{i}$ being proportional to the weight $w(\boldsymbol{x}_{i})$. </li>
+				</ol>
+			</section>
+
+			<section>
 				<h2>Sequential Monte Carlo</h2>
 				<ul>
-					<li class="fragment">Idea is to split problem of sampling $w(\boldsymbol{x})=\frac{p(\boldsymbol{x})}{g(\boldsymbol{x})}$ into substeps</li>
-					<li class="fragment">$w(\boldsymbol{x})=\frac{p(x_{1})p(x_{2}|x_{1})p(x_{3}|x_{1},x_{2})...p(x_{k}|x_{1},...,x_{k-1})}{g(x_{1})g(x_{2}|x_{1})g(x_{3}|x_{1},x_{2})...g(x_{k}|x_{1},...,x_{k-1})}$</li>
+					<li class="fragment" data-fragment-index="1">Idea is to split problem of computing $w(\boldsymbol{x})=\frac{p(\boldsymbol{x})}{g(\boldsymbol{x})}$ into substeps</li>
+					<li class="fragment" data-fragment-index="2">$w(\boldsymbol{x})=\frac{p(x_{1})p(x_{2}|x_{1})p(x_{3}|x_{1},x_{2})...p(x_{k}|x_{1},...,x_{k-1})}{g(x_{1})g(x_{2}|x_{1})g(x_{3}|x_{1},x_{2})...g(x_{k}|x_{1},...,x_{k-1})}$</li>
+					<li class="fragment" data-fragment-index="3">Define $\boldsymbol{x}_{t}=(x_{1},...,x_{t})$<br/>
+						$w(\boldsymbol{x}_{t})=w(\boldsymbol{x}_{t-1})\frac{p(x_{t}|\boldsymbol{x}_{t-1})}{g(x_{t}|\boldsymbol{x}_{t-1})}$
+						</li>
+						<li class="fragment" data-fragment-index="4">High-dimensional problems</li>
+						<li class="fragment" data-fragment-index="4">Can make use of $p(x_{t}|\boldsymbol{x}_{t-1})$ when setting up the proposal distribution $g(x_{t}|\boldsymbol{x}_{t-1})$</li>
 				</ul>
 			</section>
 
@@ -410,6 +424,7 @@
 
 					</section>
 
+<!--
 					<section>
 						<h3>Raw distance function</h3>
 						<ul>
@@ -417,12 +432,11 @@
 							<li class="fragment" style="color:red">Bug</li>
 						</ul>
 						<br/>
-
 						<video width="750" height="500" controls>
 							<source src="video/ma_raw_distance3.mp4" type="video/mp4">Your browser does not support the video tag.
 						</video>
-
 					</section>
+-->
 
 					<section>
 						<h3>Raw distance function</h3>
@@ -435,9 +449,13 @@
 						<video width="750" height="500" controls>
 							<source src="video/ma_raw_distance3_v2.mp4" type="video/mp4">Your browser does not support the video tag.
 						</video>
-
 					</section>
+				</section>
 
+				<section>
+						<ul>
+							<li class="fragment">Method we present here requires many samples from approximation to likelihood</li>
+						</ul>
 				</section>
 
 				</div>
