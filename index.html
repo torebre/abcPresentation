@@ -43,9 +43,9 @@
 					<li>Motivation</li>
 					<li>Approximate Bayesian Computation</li>
 					<li>SMC in ABC
-					<ul>
-						<li>Focus on algorithm developed by Del Moral et. al. (2012)</li>
-					</ul>
+						<ul>
+							<li>Focus on algorithm developed by Del Moral et. al. (2012)</li>
+						</ul>
 					</li>
 					<li>Examples</li>
 				</ul>
@@ -101,13 +101,13 @@
 			<section>
 				<h2>Approximating the posterior</h2>
 				<ul>
-				<li class="fragment">MCMC methods</li>
-				<ul>
-					<li class="fragment">Popular for sampling from arbitrary distribution</li>
+					<li class="fragment">MCMC methods</li>
+					<ul>
+						<li class="fragment">Popular for sampling from arbitrary distribution</li>
+					</ul>
+					<li class="fragment">Importance sampling</li>
+					<li class="fragment">Need to evaluate likelihood</li>
 				</ul>
-				<li class="fragment">Importance sampling</li>
-				<li class="fragment">Need to evaluate likelihood</li>
-			</ul>
 			</section>
 
 			<section>
@@ -126,9 +126,9 @@
 				<ul>
 					<li class="fragment>">Introduce an auxillary variable $\boldsymbol{x}$</br>
 						$p(\boldsymbol{\theta},\boldsymbol{x}|\boldsymbol{y})\propto p(\boldsymbol{y}|\boldsymbol{x},\boldsymbol{\theta})p(\boldsymbol{x}|\boldsymbol{\theta})p(\boldsymbol{\theta})$</li>
-					<li class="fragment" data-fragment-index="1">Assuming $p(\boldsymbol{y}|\boldsymbol{x},\boldsymbol{\theta})$ has point mass $\boldsymbol{x}=\boldsymbol{y}$<br/>
-						Posterior can be retrieved by integrating out $\boldsymbol{x}$<br/>
-					$\begin{align*}p(\boldsymbol{\theta}|\boldsymbol{y}) & \propto\int_{Y}p(\boldsymbol{y}|\boldsymbol{x},\boldsymbol{\theta})p(\boldsymbol{x}|\boldsymbol{\theta})d\boldsymbol{x}p(\boldsymbol{\theta})\\ & =p(\boldsymbol{y}|\boldsymbol{\theta})p(\boldsymbol{\theta})\end{align*}$
+					<li class="fragment" data-fragment-index="1">Assuming $p(\boldsymbol{y}|\boldsymbol{x},\boldsymbol{\theta})$ has point mass $\boldsymbol{x}=\boldsymbol{y}$
+						<br/> Posterior can be retrieved by integrating out $\boldsymbol{x}$
+						<br/> $\begin{align*}p(\boldsymbol{\theta}|\boldsymbol{y}) & \propto\int_{Y}p(\boldsymbol{y}|\boldsymbol{x},\boldsymbol{\theta})p(\boldsymbol{x}|\boldsymbol{\theta})d\boldsymbol{x}p(\boldsymbol{\theta})\\ & =p(\boldsymbol{y}|\boldsymbol{\theta})p(\boldsymbol{\theta})\end{align*}$
 					</li>
 				</ul>
 			</section>
@@ -139,20 +139,21 @@
 					<li>Generate samples from the likelihood that lie close to the observed data</li>
 					<li>$\boldsymbol{x}\approx\boldsymbol{y}$</li>
 					<li>Let $p(\boldsymbol{y}|\boldsymbol{x},\boldsymbol{\theta})$ be some kernel density function centered on $\boldsymbol{y}$</li>
-					<li>$d(\boldsymbol{x},\boldsymbol{y})<\epsilon$</li>
+					<li>$d(\boldsymbol{x},\boldsymbol{y})
+						<\epsilon$</li>
 				</ul>
 			</section>
 
 			<section>
 				<ul>
 					<li>Another relaxation of requirements</li>
-					<li>Use statistics instead of data itself<br/>
-						 $d(S(\boldsymbol{x}),S(\boldsymbol{y}))<\epsilon$
-					</li>
-					<li class="fragment">$S(\boldsymbol{x})\approx S(\boldsymbol{y})$ more likely than $\boldsymbol{x}\approx\boldsymbol{y}$</li>
-					<li class="fragment">Would like the statistics to be sufficient for the parameters being estimated<br/>
-$p(S(\boldsymbol{y})|\boldsymbol{\theta})p(\boldsymbol{\theta}) = p(\boldsymbol{y}|\boldsymbol{\theta})p(\boldsymbol{\theta})$
-					</li>
+					<li>Use statistics instead of data itself
+						<br/> $d(S(\boldsymbol{x}),S(\boldsymbol{y}))
+						<\epsilon$ </li>
+							<li class="fragment">$S(\boldsymbol{x})\approx S(\boldsymbol{y})$ more likely than $\boldsymbol{x}\approx\boldsymbol{y}$</li>
+							<li class="fragment">Would like the statistics to be sufficient for the parameters being estimated
+								<br/> $p(S(\boldsymbol{y})|\boldsymbol{\theta})p(\boldsymbol{\theta}) = p(\boldsymbol{y}|\boldsymbol{\theta})p(\boldsymbol{\theta})$
+							</li>
 				</ul>
 			</section>
 
@@ -166,8 +167,8 @@ $p(S(\boldsymbol{y})|\boldsymbol{\theta})p(\boldsymbol{\theta}) = p(\boldsymbol{
 						</ul>
 					</li>
 
-						<li class="fragment">Getting a good approximation to posterior<br>
-							$\epsilon \to 0$
+					<li class="fragment">Getting a good approximation to posterior
+						<br> $\epsilon \to 0$
 					</li>
 
 					<li class="fragment">Computational resources
@@ -176,10 +177,10 @@ $p(S(\boldsymbol{y})|\boldsymbol{\theta})p(\boldsymbol{\theta}) = p(\boldsymbol{
 			</section>
 
 			<section>
-				 <ul>
+				<ul>
 					<li>Early example from Marjoram et al. (2003)</li>
 				</ul>
-					<img width="846" height="613" src="figures/mcmc_in_abc.png" />
+				<img width="846" height="613" src="figures/mcmc_in_abc.png" />
 			</section>
 
 			<section>
@@ -193,7 +194,7 @@ $p(S(\boldsymbol{y})|\boldsymbol{\theta})p(\boldsymbol{\theta}) = p(\boldsymbol{
 			<section>
 				<h2>SMC sampler</h2>
 				<ul>
-				<li>Detour into Sequential Monte Carlo</li>
+					<li>Detour into Sequential Monte Carlo</li>
 				</ul>
 			</section>
 
@@ -201,10 +202,11 @@ $p(S(\boldsymbol{y})|\boldsymbol{\theta})p(\boldsymbol{\theta}) = p(\boldsymbol{
 				<h2>Importance sampling</h2>
 				<ul>
 					<li>Target distribution, $p(\boldsymbol{x})$
-						<li class="fragment">Proposal distribution, $g(\boldsymbol{x})$<br/>
-							<img width="362" height="358" src="figures/targetAndProposalIllustration.png"/>
+						<li class="fragment">Proposal distribution, $g(\boldsymbol{x})$
+							<br/>
+							<img width="362" height="358" src="figures/targetAndProposalIllustration.png" />
 						</li>
-					<li class="fragment">Generate weighted sample: $w(\boldsymbol{x})=\frac{p(\boldsymbol{x})}{g(\boldsymbol{x})}$</li>
+						<li class="fragment">Generate weighted sample: $w(\boldsymbol{x})=\frac{p(\boldsymbol{x})}{g(\boldsymbol{x})}$</li>
 				</ul>
 			</section>
 
@@ -218,15 +220,37 @@ $p(S(\boldsymbol{y})|\boldsymbol{\theta})p(\boldsymbol{\theta}) = p(\boldsymbol{
 			</section>
 
 			<section>
+				<h2>Normalised weights</h2>
+				<ul>
+					<li>If the target distribution is only known up to a constant: $\mathrm{c}p(\boldsymbol{x})$</li>
+					<li class="fragment" data-fragment-index="1">$w(\boldsymbol{x}_{i})=\frac{p(\boldsymbol{x}_{i})/g(\boldsymbol{x}_{i})}{\sum_{j=1}^{n}p(\boldsymbol{x}_{j})/g(\boldsymbol{x}_{j})}$</li>
+					<li class="fragment" data-fragment-index="1">The constant cancels</li>
+				</ul>
+			</section>
+
+			<section>
 				<h2>Sequential Monte Carlo</h2>
 				<ul>
 					<li class="fragment" data-fragment-index="1">Idea is to split problem of computing $w(\boldsymbol{x})=\frac{p(\boldsymbol{x})}{g(\boldsymbol{x})}$ into substeps</li>
 					<li class="fragment" data-fragment-index="2">$w(\boldsymbol{x})=\frac{p(x_{1})p(x_{2}|x_{1})p(x_{3}|x_{1},x_{2})...p(x_{k}|x_{1},...,x_{k-1})}{g(x_{1})g(x_{2}|x_{1})g(x_{3}|x_{1},x_{2})...g(x_{k}|x_{1},...,x_{k-1})}$</li>
-					<li class="fragment" data-fragment-index="3">Define $\boldsymbol{x}_{t}=(x_{1},...,x_{t})$<br/>
-						$w(\boldsymbol{x}_{t})=w(\boldsymbol{x}_{t-1})\frac{p(x_{t}|\boldsymbol{x}_{t-1})}{g(x_{t}|\boldsymbol{x}_{t-1})}$
-						</li>
-						<li class="fragment" data-fragment-index="4">High-dimensional problems</li>
-						<li class="fragment" data-fragment-index="4">Can make use of $p(x_{t}|\boldsymbol{x}_{t-1})$ when setting up the proposal distribution $g(x_{t}|\boldsymbol{x}_{t-1})$</li>
+					<li class="fragment" data-fragment-index="3">Define $\boldsymbol{x}_{t}=(x_{1},...,x_{t})$
+						<br/> $w(\boldsymbol{x}_{t})=w(\boldsymbol{x}_{t-1})\frac{p(x_{t}|\boldsymbol{x}_{t-1})}{g(x_{t}|\boldsymbol{x}_{t-1})}$
+					</li>
+					<li class="fragment" data-fragment-index="4">High-dimensional problems</li>
+					<li class="fragment" data-fragment-index="4">Can make use of $p(x_{t}|\boldsymbol{x}_{t-1})$ when setting up the proposal distribution $g(x_{t}|\boldsymbol{x}_{t-1})$</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>A further approximation</h2>
+				<ul>
+					<li>Difficult to get $p(x_{k}|\boldsymbol{x}_{k-1})$</li>
+					<li class="fragment">Introduce a sequence of approximations to marginal: $\hat{p}(\boldsymbol{x}_{k})$</li>
+					<li class="fragment">Final step in approximation: $\hat{p}(\boldsymbol{x}_{k})=p(\boldsymbol{x}_{k})$</li>
+					<li class="fragment">Weight update becomes:
+						$$\begin{align*} w(\boldsymbol{x}_{t}) & =w(\boldsymbol{x}_{t-1})\frac{\hat{p}(\boldsymbol{x}_{t})}{\hat{p}(\boldsymbol{x}_{t-1})g(x_{t}|\boldsymbol{x}_{t-1})}\\ & =w(\boldsymbol{x}_{t-1})u_{t}(\boldsymbol{x}_{t-1}) \end{align*}$$
+					</li>
+					<li class="fragment">Approximations will cancel and final weight is: $w(\boldsymbol{x}_{k})=\frac{p(\boldsymbol{x}_{k})}{g(\boldsymbol{x}_{k})}$</li>
 				</ul>
 			</section>
 
@@ -249,11 +273,22 @@ $p(S(\boldsymbol{y})|\boldsymbol{\theta})p(\boldsymbol{\theta}) = p(\boldsymbol{
 				<section>
 					<h2>Possible remedy</h2>
 					<ul>
-						<li class="fragment">Introduce resampling step</li>
-						<li class="fragment">Triggered by ESS</li>
-						<li class="fragment">Our definition:$$\frac{1}{\sum_{i=1}^{n}w_{i}(\boldsymbol{x})^{2}}$$</li>
+						<li class="fragment">Introduce resampling steps</li>
+						<li class="fragment">Resample with probability proportional to the weights</li>
+						<li class="fragment">Triggered by a measure called Effective Sample Size (ESS)</li>
+						<li class="fragment">How many samples are weighted ones compared to ones coming from the true distribution</li>
 					</ul>
 				</section>
+
+				<section>
+					<h2>ESS</h2>
+					<ul>
+						<li class="fragment">Definition used here:$$\frac{1}{\sum_{i=1}^{n}w(\boldsymbol{x}_{i})^{2}}$$</li>
+						<li class="fragment">Valid when using normalised weights</li>
+						<li class="fragment">Liu (2001):$$\mathrm{ESS}=\frac{n}{1+\mathrm{var}_{g}(w(\boldsymbol{X}))}$$</li>
+					</ul>
+				</section>
+
 				<section>
 					<section>
 						<video width="600" height="600" controls>
@@ -266,23 +301,53 @@ $p(S(\boldsymbol{y})|\boldsymbol{\theta})p(\boldsymbol{\theta}) = p(\boldsymbol{
 			<section>
 				<h2>SMC sampler</h2>
 				<ul>
+					<li>Del Moral et. al. (2006)</li>
 					<li class="fragment">The main idea is that the underlying probability space is the same through the weight updates</li>
 					<li class="fragment">Achieved by using what is called backward kernels</li>
 					<li class="fragment">$w(\boldsymbol{x}_{i})=\frac{p_{i}(\boldsymbol{x}_{i})\Pi_{t=2}^{i}L(\boldsymbol{x}_{t},\boldsymbol{x}_{t-1})}{g_{1}(\boldsymbol{x}_{1})\Pi_{t=1}^{i-1}K(\boldsymbol{x}_{t},\boldsymbol{x}_{t+1})}$</li>
 				</ul>
-				</section>
+			</section>
 
 			<section>
+				<h2>Optimal backward kernel</h2>
 				<ul>
-					<li>A particle: $p_{\epsilon}(\boldsymbol{\theta},\{\boldsymbol{x}\}_{1:m}|\boldsymbol{y})$</li>
+					<li>$L_{i-1}(\boldsymbol{x}_{i},\boldsymbol{x}_{i-1})=\frac{g_{i-1}(\boldsymbol{x}_{i-1})K_{i}(\boldsymbol{x}_{i-1},\boldsymbol{x}_{i})}{g_{i}(\boldsymbol{x}_{i})}$</li>
+					<li>Optimal in sense of minimum variance of unormalised weights</li>
+					<li class="fragment">Difficulty in computing marginals: $g(\boldsymbol{x}_{i})$</li>
+					<li class="fragment">Instead approximate optimal backward kernel with an MCMC kernel with invariant distribution $p_{i}(\boldsymbol{z}_{i})$</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>Adaptive SMC method in ABC</h2>
+				<ul>
+					<li>Del Moral et. al. (2012)</li>
+					<li>A particle: $\{\boldsymbol{\theta},\{\boldsymbol{x}\}_{1:m}\}$</li>
+					<li>$p_{\epsilon}(\boldsymbol{\theta},\{\boldsymbol{x}\}_{1:m}|\boldsymbol{y})$</li>
+					<li class="fragment">The marginal for $\boldsymbol{\theta}$ is the same for any $m$</li>
 				</ul>
 			</section>
 
 			<section>
 				<ul>
-					<li>Metropolis-Hastings ratio:<br/>
-						$\min\left(1,\frac{\sum_{j=1}^{m}\mathrm{I}_{\epsilon,\boldsymbol{y}}(\boldsymbol{x}_{i+1}^{(j)})q_{i}(\boldsymbol{\theta}_{i+1},\boldsymbol{\theta}_{i})p(\boldsymbol{\theta}_{i+1})}{\sum_{j=1}^{m}\mathrm{I}_{\epsilon,\boldsymbol{y}}(\boldsymbol{x}_{i}^{(j)})q_{i}(\boldsymbol{\theta}_{i},\boldsymbol{\theta}_{i+1})p(\boldsymbol{\theta}_{i})}\right)$
-						</li>
+					<h2>Weight update</h2>
+					<li>By using backward MCMC kernel</br>
+						$\begin{align*}
+w_{i}(\boldsymbol{z}_{i}) & =w_{i-1}(\boldsymbol{z}_{i-1})\frac{p_{i}(\boldsymbol{z}_{i-1})}{p_{i-1}(\boldsymbol{z}_{i-1})}\\
+ & \propto w_{i-1}(\boldsymbol{z}_{i-1})\frac{\sum_{j=1}^{m}I_{\epsilon_{i},\boldsymbol{y}}(\boldsymbol{x}_{i-1}^{(j)})}{\sum_{j=1}^{m}I_{\epsilon_{i-1},\boldsymbol{y}}(\boldsymbol{x}_{i-1}^{(j)})}
+\end{align*}$
+					</li>
+					<li class="fragment">Now need to specify kernel for propagating the particles</li>
+				</ul>
+			</section>
+
+			<section>
+				<ul>
+					<li>Metropolis-Hastings ratio:
+						<br/> $\begin{multline} \min\left(1,\frac{p_{\epsilon}(\boldsymbol{\theta}_{i+1},\{\boldsymbol{x}_{i+1}\}_{1:m}|\boldsymbol{y})q_{i}(\boldsymbol{\theta}_{i+1},\boldsymbol{\theta}_{i})\prod_{j=1}^{m}p(\boldsymbol{x}_{i}^{(j)}|\boldsymbol{\theta}_{i})}{p_{\epsilon}(\boldsymbol{\theta}_{i},\{\boldsymbol{x}_{i}\}_{1:m}|\boldsymbol{y})q_{i}(\boldsymbol{\theta}_{i},\boldsymbol{\theta}_{i+1})\prod_{j=1}^{m}p(\boldsymbol{x}_{i+1}^{(j)}|\boldsymbol{\theta}_{i+1})}\right)=\\
+						\min\left(1,\frac{\sum_{j=1}^{m}\mathrm{I}_{\epsilon,\boldsymbol{y}}(\boldsymbol{x}_{i+1}^{(j)})q_{i}(\boldsymbol{\theta}_{i+1},\boldsymbol{\theta}_{i})p(\boldsymbol{\theta}_{i+1})}{\sum_{j=1}^{m}\mathrm{I}_{\epsilon,\boldsymbol{y}}(\boldsymbol{x}_{i}^{(j)})q_{i}(\boldsymbol{\theta}_{i},\boldsymbol{\theta}_{i+1})p(\boldsymbol{\theta}_{i})}\right)\label{eq:mh_ratio_without_likelihood}
+						\end{multline}$
+					</li>
 				</ul>
 			</section>
 
@@ -303,7 +368,7 @@ $p(S(\boldsymbol{y})|\boldsymbol{\theta})p(\boldsymbol{\theta}) = p(\boldsymbol{
 				<section>
 					<img src="figures/smc_algorithm3.png" />
 				</section>
-</section>
+			</section>
 
 			<section>
 				<h2>Resampling schedule</h2>
@@ -311,120 +376,120 @@ $p(S(\boldsymbol{y})|\boldsymbol{\theta})p(\boldsymbol{\theta}) = p(\boldsymbol{
 				<img src="figures/epsilon_candidate_plot_1000_09_toy_example.png" class="fragment" />
 			</section>
 
+			<section>
+				<h1>Examples</h1>
+			</section>
+
+			<section>
 				<section>
-					<h1>Examples</h1>
+					<h2>Simple mixture</h2>
+					<ul>
+						<li>$p(\theta|x)\sim(\mathrm{N}(\theta,1)+\mathrm{N}(\theta,\frac{1}{100}))\mathrm{I}_{[-10,10]}(\theta)$</li>
+						<li class="fragment">$d(x,y)=|x-y|$</li>
+						<li class="fragment">Single observation at $y=0$</li>
+					</ul>
 				</section>
 
 				<section>
-					<section>
-						<h2>Simple mixture</h2>
-						<ul>
-							<li>$p(\theta|x)\sim(\mathrm{N}(\theta,1)+\mathrm{N}(\theta,\frac{1}{100}))\mathrm{I}_{[-10,10]}(\theta)$</li>
-							<li class="fragment">$d(x,y)=|x-y|$</li>
-							<li class="fragment">Single observation at $y=0$</li>
-						</ul>
-					</section>
-
-					<section>
-						<h3>No replicates</h3>
-						<video width="600" height="600" controls>
-							<source src="video/configuration1_replicates.mp4" type="video/mp4">Your browser does not support the video tag.
-						</video>
-					</section>
-
-					<section>
-						<h3>5 replicates</h3>
-						<video width="600" height="600" controls>
-							<source src="video/configuration2_replicates.mp4" type="video/mp4">Your browser does not support the video tag.
-						</video>
-					</section>
-
-					<section>
-						<h3>20 replicates</h3>
-						<video width="600" height="600" controls>
-							<source src="video/configuration3_replicates.mp4" type="video/mp4">Your browser does not support the video tag.
-						</video>
-					</section>
+					<h3>No replicates</h3>
+					<video width="600" height="600" controls>
+						<source src="video/configuration1_replicates.mp4" type="video/mp4">Your browser does not support the video tag.
+					</video>
 				</section>
 
 				<section>
-					<section>
-						<h2>MA(2) process</h2>
-						<ul>
-							<li>Example used in Marin et. al. (2012)</li>
-							<li class="fragment">$z_{t}=a_{t}-\theta_{1}a_{t-1}-\theta_{2}a_{t-2}$</li>
-							<li class="fragment">The task is to provide estimates for $\boldsymbol{\theta}$</li>
-							<li class="fragment">Prior is chosen to be uniform on region that makes the process invertible</li>
-							<li class="fragment">There is a closed expression for the likelihood</li>
-						</ul>
-					</section>
+					<h3>5 replicates</h3>
+					<video width="600" height="600" controls>
+						<source src="video/configuration2_replicates.mp4" type="video/mp4">Your browser does not support the video tag.
+					</video>
+				</section>
 
-					<section>
-						<h2>Setups</h2>
-						<ul>
-							<li>Trying two different statistics</li>
-							<li>In all cases a time series of length 100 is generated, and this is used as the observation</li>
-						</ul>
-					</section>
+				<section>
+					<h3>20 replicates</h3>
+					<video width="600" height="600" controls>
+						<source src="video/configuration3_replicates.mp4" type="video/mp4">Your browser does not support the video tag.
+					</video>
+				</section>
+			</section>
 
-					<section>
-						<h3>Autocovariance distance</h3>
-						<ul>
-							<li>Using measure of autocovariance as statistic</li>
-							<li class="fragment">$d=\frac{1}{n}\left(\sum_{i=2}^{n}\left(x_{i}x_{i-1}\right)-\sum_{i=2}^{n}\left(y_{i}y_{i-1}\right)\right)^{2}\\ +\frac{1}{n}\left(\sum_{i=2}^{n}\left(x_{i}x_{i-2}\right)-\sum_{i=2}^{n}\left(y_{i}y_{i-2}\right)\right)^{2}$
-							</li>
-						</ul>
-					</section>
+			<section>
+				<section>
+					<h2>MA(2) process</h2>
+					<ul>
+						<li>Example used in Marin et. al. (2012)</li>
+						<li class="fragment">$z_{t}=a_{t}-\theta_{1}a_{t-1}-\theta_{2}a_{t-2}$</li>
+						<li class="fragment">The task is to provide estimates for $\boldsymbol{\theta}$</li>
+						<li class="fragment">Prior is chosen to be uniform on region that makes the process invertible</li>
+						<li class="fragment">There is a closed expression for the likelihood</li>
+					</ul>
+				</section>
 
-					<section>
-						<h3>Autocovariance distance</h3>
-						<video width="600" height="600" controls>
-							<source src="video/ma_autocovariance.mp4" type="video/mp4">Your browser does not support the video tag.
-						</video>
-					</section>
+				<section>
+					<h2>Setups</h2>
+					<ul>
+						<li>Trying two different statistics</li>
+						<li>In all cases a time series of length 100 is generated, and this is used as the observation</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Autocovariance distance</h3>
+					<ul>
+						<li>Using measure of autocovariance as statistic</li>
+						<li class="fragment">$d=\frac{1}{n}\left(\sum_{i=2}^{n}\left(x_{i}x_{i-1}\right)-\sum_{i=2}^{n}\left(y_{i}y_{i-1}\right)\right)^{2}\\ +\frac{1}{n}\left(\sum_{i=2}^{n}\left(x_{i}x_{i-2}\right)-\sum_{i=2}^{n}\left(y_{i}y_{i-2}\right)\right)^{2}$
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Autocovariance distance</h3>
+					<video width="600" height="600" controls>
+						<source src="video/ma_autocovariance.mp4" type="video/mp4">Your browser does not support the video tag.
+					</video>
+				</section>
+			</section>
+
+			<section>
+				<h3>Raw distance function</h3>
+				<ul>
+					<li>$d=\sum_{i=1}^{n}\left(x_{i}-y_{i}\right)^{2}$</li>
+				</ul>
+			</section>
+
+			<section>
+				<section>
+					<h3>Raw distance function</h3>
+					<ul>
+						<li>Same settings as in previous example</li>
+					</ul>
+					<video width="750" height="500" controls>
+						<source src="video/ma_raw_distance.mp4" type="video/mp4">Your browser does not support the video tag.
+					</video>
+				</section>
+
+				<section>
+					<h3>What happens when it gets stuck?</h3>
+					<div class="fragment">
+						Note: Data from a different example
+						<img src="figures/epsilon_candidate_plot.png" />
+						<img src="figures/distance_to_epsilon.png" />
+					</div>
 				</section>
 
 				<section>
 					<h3>Raw distance function</h3>
 					<ul>
-						<li>$d=\sum_{i=1}^{n}\left(x_{i}-y_{i}\right)^{2}$</li>
+						<li>$\alpha=0.99$</li>
 					</ul>
+					<br/>
+
+					<video width="750" height="500" controls>
+						<source src="video/ma_raw_distance2.mp4" type="video/mp4">Your browser does not support the video tag.
+					</video>
+
 				</section>
 
-				<section>
-					<section>
-						<h3>Raw distance function</h3>
-						<ul>
-							<li>Same settings as in previous example</li>
-						</ul>
-						<video width="750" height="500" controls>
-							<source src="video/ma_raw_distance.mp4" type="video/mp4">Your browser does not support the video tag.
-						</video>
-					</section>
-
-					<section>
-						<h3>What happens when it gets stuck?</h3>
-						<div class="fragment">
-							Note: Data from a different example
-							<img src="figures/epsilon_candidate_plot.png" />
-							<img src="figures/distance_to_epsilon.png" />
-						</div>
-					</section>
-
-					<section>
-						<h3>Raw distance function</h3>
-						<ul>
-							<li>$\alpha=0.99$</li>
-						</ul>
-						<br/>
-
-						<video width="750" height="500" controls>
-							<source src="video/ma_raw_distance2.mp4" type="video/mp4">Your browser does not support the video tag.
-						</video>
-
-					</section>
-
-<!--
+				<!--
 					<section>
 						<h3>Raw distance function</h3>
 						<ul>
@@ -438,27 +503,27 @@ $p(S(\boldsymbol{y})|\boldsymbol{\theta})p(\boldsymbol{\theta}) = p(\boldsymbol{
 					</section>
 -->
 
-					<section>
-						<h3>Raw distance function</h3>
-						<ul>
-							<li>$\alpha=0.9$, 5 replicates</li>
-							<li>Fixed</li>
-						</ul>
-						<br/>
-
-						<video width="750" height="500" controls>
-							<source src="video/ma_raw_distance3_v2.mp4" type="video/mp4">Your browser does not support the video tag.
-						</video>
-					</section>
-				</section>
-
 				<section>
-						<ul>
-							<li class="fragment">Method we present here requires many samples from approximation to likelihood</li>
-						</ul>
-				</section>
+					<h3>Raw distance function</h3>
+					<ul>
+						<li>$\alpha=0.9$, 5 replicates</li>
+						<li>Fixed</li>
+					</ul>
+					<br/>
 
-				</div>
+					<video width="750" height="500" controls>
+						<source src="video/ma_raw_distance3_v2.mp4" type="video/mp4">Your browser does not support the video tag.
+					</video>
+				</section>
+			</section>
+
+			<section>
+				<ul>
+					<li class="fragment">Method we present here requires many samples from approximation to likelihood</li>
+				</ul>
+			</section>
+
+			</div>
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
