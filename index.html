@@ -188,13 +188,7 @@
 				<ul>
 					<li class="fragment">Focus here is on an algorithm developed by Del Moral et. al. (2012)</li>
 					<li class="fragment">Algorithm uses what is called an SMC sampler developed by Del Moral et. al. (2006)</li>
-				</ul>
-			</section>
-
-			<section>
-				<h2>SMC sampler</h2>
-				<ul>
-					<li>Detour into Sequential Monte Carlo</li>
+					<li class="fragment">Weighted sample</li>
 				</ul>
 			</section>
 
@@ -276,7 +270,7 @@
 						<li class="fragment">Introduce resampling steps</li>
 						<li class="fragment">Resample with probability proportional to the weights</li>
 						<li class="fragment">Triggered by a measure called Effective Sample Size (ESS)</li>
-						<li class="fragment">How many samples are weighted ones compared to ones coming from the true distribution</li>
+						<li class="fragment">How many samples are weighted ones worth compared to ones coming from the true distribution</li>
 					</ul>
 				</section>
 
@@ -305,6 +299,12 @@
 					<li class="fragment">The main idea is that the underlying probability space is the same through the weight updates</li>
 					<li class="fragment">Achieved by using what is called backward kernels</li>
 					<li class="fragment">$w(\boldsymbol{x}_{i})=\frac{p_{i}(\boldsymbol{x}_{i})\Pi_{t=2}^{i}L(\boldsymbol{x}_{t},\boldsymbol{x}_{t-1})}{g_{1}(\boldsymbol{x}_{1})\Pi_{t=1}^{i-1}K(\boldsymbol{x}_{t},\boldsymbol{x}_{t+1})}$</li>
+				</ul>
+			</section>
+
+			<section>
+				<ul>
+					<li>$\hat{p}_{i}(\boldsymbol{x}_{i})=p_{i}(\boldsymbol{x}_{i})L_{i-1}(\boldsymbol{x}_{i},\boldsymbol{x}_{i-1})$</li>
 				</ul>
 			</section>
 
@@ -519,7 +519,8 @@ w_{i}(\boldsymbol{z}_{i}) & =w_{i-1}(\boldsymbol{z}_{i-1})\frac{p_{i}(\boldsymbo
 
 			<section>
 				<ul>
-					<li class="fragment">Method we present here requires many samples from approximation to likelihood</li>
+					<li class="fragment">Need to generate many samples</li>
+					<li class="fragment">Attempt at reducing the number of samples generated: Moores et. al. (2014)</li>
 				</ul>
 			</section>
 
