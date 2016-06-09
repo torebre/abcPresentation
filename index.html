@@ -95,18 +95,17 @@
 				<ul>
 					<li class="fragment">Potentially difficult to evaluate</li>
 					<li class="fragment">Many methods exist for approximating a distribution</li>
+					<li class="fragment"><img src="figures/sample_approximations.png" /></li>
 				</ul>
 			</section>
 
 			<section>
 				<h2>Approximating the posterior</h2>
 				<ul>
-					<li class="fragment">MCMC methods</li>
-					<ul>
-						<li class="fragment">Popular for sampling from arbitrary distribution</li>
-					</ul>
-					<li class="fragment">Importance sampling</li>
-					<li class="fragment">Need to evaluate likelihood</li>
+					<li class="fragment" data-fragment-index="1">MCMC methods</li>
+					<li class="fragment" data-fragment-index="2">Importance sampling</li>
+					<li class="fragment" data-fragment-index="3">And many more</li>
+					<li class="fragment" data-fragment-index="4">Need to evaluate likelihood</li>
 				</ul>
 			</section>
 
@@ -117,7 +116,6 @@
 					<li class="fragment">Also known as Likelihood-free methods</li>
 					<li class="fragment">First used in population genetics</li>
 					<li class="fragment">Can be used where model is some stochastic process</li>
-					<li class="fragment">Need to be able to generate (many) samples from likelihood</li>
 				</ul>
 			</section>
 
@@ -139,21 +137,31 @@
 					<li>Generate samples from the likelihood that lie close to the observed data</li>
 					<li>$\boldsymbol{x}\approx\boldsymbol{y}$</li>
 					<li>Let $p(\boldsymbol{y}|\boldsymbol{x},\boldsymbol{\theta})$ be some kernel density function centered on $\boldsymbol{y}$</li>
-					<li>$d(\boldsymbol{x},\boldsymbol{y})
-						<\epsilon$</li>
+					<li>Distance: $d(\boldsymbol{x},\boldsymbol{y})<\epsilon$</li>
 				</ul>
 			</section>
 
 			<section>
+					<h2>Another relaxation of requirements</h2>
 				<ul>
-					<li>Another relaxation of requirements</li>
 					<li>Use statistics instead of data itself
 						<br/> $d(S(\boldsymbol{x}),S(\boldsymbol{y}))
 						<\epsilon$ </li>
 							<li class="fragment">$S(\boldsymbol{x})\approx S(\boldsymbol{y})$ more likely than $\boldsymbol{x}\approx\boldsymbol{y}$</li>
 							<li class="fragment">Would like the statistics to be sufficient for the parameters being estimated
-								<br/> $p(S(\boldsymbol{y})|\boldsymbol{\theta})p(\boldsymbol{\theta}) = p(\boldsymbol{y}|\boldsymbol{\theta})p(\boldsymbol{\theta})$
+								<br/>$p(\boldsymbol{y}|S(\boldsymbol{y}),\boldsymbol{\theta}) = p(\boldsymbol{y}|S(\boldsymbol{y}))$
 							</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>How does it look in practice</h2>
+				<ul>
+					<li class="fragment">Walker et. al. (2010)</li>
+					<li class="fragment">Small world network disease model fitted to SARS outbreak data</li>
+					<li class="fragment">
+						<img src="figures/abc_practial_example.png"/>
+						</li>
 				</ul>
 			</section>
 
@@ -171,8 +179,7 @@
 						<br> $\epsilon \to 0$
 					</li>
 
-					<li class="fragment">Computational resources
-					</li>
+					<li class="fragment">Computational resources</li>
 				</ul>
 			</section>
 
@@ -186,9 +193,11 @@
 			<section>
 				<h2>SMC in ABC</h2>
 				<ul>
+					<li class="fragment">$\epsilon$ in algorithm shown previously was fixed</li>
+					<li class="fragment">SMC methods will attempt to make the approximation better throughout the run</li>
 					<li class="fragment">Focus here is on an algorithm developed by Del Moral et. al. (2012)</li>
 					<li class="fragment">Algorithm uses what is called an SMC sampler developed by Del Moral et. al. (2006)</li>
-					<li class="fragment">Weighted sample</li>
+					<li class="fragment">Need to explain some concepts: Weighted sample, SMC</li>
 				</ul>
 			</section>
 
@@ -236,7 +245,7 @@
 			</section>
 
 			<section>
-				<h2>A further approximation</h2>
+				<h2>Introducing an approximation</h2>
 				<ul>
 					<li>Difficult to get $p(x_{k}|\boldsymbol{x}_{k-1})$</li>
 					<li class="fragment">Introduce a sequence of approximations to marginal: $\hat{p}(\boldsymbol{x}_{k})$</li>
@@ -296,41 +305,57 @@
 				<h2>SMC sampler</h2>
 				<ul>
 					<li>Del Moral et. al. (2006)</li>
-					<li class="fragment">The main idea is that the underlying probability space is the same through the weight updates</li>
-					<li class="fragment">Achieved by using what is called backward kernels</li>
-					<li class="fragment">$w(\boldsymbol{x}_{i})=\frac{p_{i}(\boldsymbol{x}_{i})\Pi_{t=2}^{i}L(\boldsymbol{x}_{t},\boldsymbol{x}_{t-1})}{g_{1}(\boldsymbol{x}_{1})\Pi_{t=1}^{i-1}K(\boldsymbol{x}_{t},\boldsymbol{x}_{t+1})}$</li>
+					<li class="fragment">Key point is that the underlying probability space is the same through the weight updates</li>
+					<li class="fragment">Proposal distributions set up using kernels:<br/>
+						$g(\boldsymbol{x}_{i})=\int K_{i}(\boldsymbol{x}_{i-1},\boldsymbol{x}_{i})g(\boldsymbol{x}_{i-1})d\boldsymbol{x}_{i-1}$
+					</li>
+					<li class="fragment">Another key point: To avoid having to calculate integral or costly pointwise approximation, what is called backward kernels are introduced</li>
 				</ul>
 			</section>
 
 			<section>
+				<h2>Backward kernel</h2>
 				<ul>
-					<li>$\hat{p}_{i}(\boldsymbol{x}_{i})=p_{i}(\boldsymbol{x}_{i})L_{i-1}(\boldsymbol{x}_{i},\boldsymbol{x}_{i-1})$</li>
+					<li class="fragment">Markov kernel: $L(\boldsymbol{x}_{i},\boldsymbol{x}_{i-1})$</li>
+					<li class="fragment">Weight at $i$: $w(\boldsymbol{x}_{i})=\frac{p_{i}(\boldsymbol{x}_{i})\Pi_{t=2}^{i}L(\boldsymbol{x}_{t},\boldsymbol{x}_{t-1})}{g_{1}(\boldsymbol{x}_{1})\Pi_{t=1}^{i-1}K(\boldsymbol{x}_{t},\boldsymbol{x}_{t+1})}$</li>
+					<li class="fragment">$\hat{p}_{i}(\boldsymbol{x}_{i})=p_{i}(\boldsymbol{x}_{i})\Pi_{t=2}^{i}L(\boldsymbol{x}_{t},\boldsymbol{x}_{t-1})$</li>
+					<li class="fragment">Requirement: Need to be able to retrieve marginal<br/>
+						$\int\hat{p}_{i}(\boldsymbol{x}_{i}|\boldsymbol{x}_{i-1})d\boldsymbol{x}_{i-1}=p_{i}(\boldsymbol{x}_{i})$</li>
 				</ul>
 			</section>
 
 			<section>
 				<h2>Optimal backward kernel</h2>
 				<ul>
-					<li>$L_{i-1}(\boldsymbol{x}_{i},\boldsymbol{x}_{i-1})=\frac{g_{i-1}(\boldsymbol{x}_{i-1})K_{i}(\boldsymbol{x}_{i-1},\boldsymbol{x}_{i})}{g_{i}(\boldsymbol{x}_{i})}$</li>
+					<li>$L(\boldsymbol{x}_{i},\boldsymbol{x}_{i-1})=\frac{g(\boldsymbol{x}_{i-1})K(\boldsymbol{x}_{i-1},\boldsymbol{x}_{i})}{g(\boldsymbol{x}_{i})}$</li>
 					<li>Optimal in sense of minimum variance of unormalised weights</li>
 					<li class="fragment">Difficulty in computing marginals: $g(\boldsymbol{x}_{i})$</li>
-					<li class="fragment">Instead approximate optimal backward kernel with an MCMC kernel with invariant distribution $p_{i}(\boldsymbol{z}_{i})$</li>
+					<li class="fragment">In the algorithm here: Instead approximate optimal backward kernel with an MCMC kernel</li>
 				</ul>
 			</section>
 
-			<section>
+			 <section>
 				<h2>Adaptive SMC method in ABC</h2>
 				<ul>
 					<li>Del Moral et. al. (2012)</li>
-					<li>A particle: $\{\boldsymbol{\theta},\{\boldsymbol{x}\}_{1:m}\}$</li>
-					<li>$p_{\epsilon}(\boldsymbol{\theta},\{\boldsymbol{x}\}_{1:m}|\boldsymbol{y})$</li>
+					<li class="fragment">A particle ($\boldsymbol{z}$): $\{\boldsymbol{\theta},\{\boldsymbol{x}\}_{1:m}\}$<br/>
+					$p_{\epsilon}(\boldsymbol{z}|\boldsymbol{y})=p_{\epsilon}(\boldsymbol{\theta},\{\boldsymbol{x}\}_{1:m}|\boldsymbol{y})$</li>
+<li class="fragment">$p_{\epsilon}(\boldsymbol{\theta},\boldsymbol{x}|\boldsymbol{y})\propto \mathrm{I}_{\epsilon,\boldsymbol{y}}(\boldsymbol{x})p(\boldsymbol{x}|\boldsymbol{\theta})p(\boldsymbol{\theta})$</li>
 					<li class="fragment">The marginal for $\boldsymbol{\theta}$ is the same for any $m$</li>
 				</ul>
 			</section>
 
 			<section>
+				<h2>Kernels</h2>
 				<ul>
+					<li class="fragment">$K(\boldsymbol{z}_{i},\boldsymbol{z}_{i+1})$, an MCMC kernel with invariant density $p_{\epsilon_{i}}(\boldsymbol{z}_{i}|\boldsymbol{y})$
+					<li class="fragment">$L(\boldsymbol{z}_{i},\boldsymbol{z}_{i-1})=\frac{p_{i}(\boldsymbol{z}_{i-1})K(\boldsymbol{z}_{i-1},\boldsymbol{z}_{i})}{p_{i}(\boldsymbol{z}_{i})}$</li>
+			</ul>
+			</section>
+
+			<section>
 					<h2>Weight update</h2>
+				<ul>
 					<li>By using backward MCMC kernel</br>
 						$\begin{align*}
 w_{i}(\boldsymbol{z}_{i}) & =w_{i-1}(\boldsymbol{z}_{i-1})\frac{p_{i}(\boldsymbol{z}_{i-1})}{p_{i-1}(\boldsymbol{z}_{i-1})}\\
@@ -342,9 +367,11 @@ w_{i}(\boldsymbol{z}_{i}) & =w_{i-1}(\boldsymbol{z}_{i-1})\frac{p_{i}(\boldsymbo
 			</section>
 
 			<section>
+				<h2>Kernel</h2>
 				<ul>
+		<!-- <li>$q_{i}(\boldsymbol{\theta}_{i},\boldsymbol{\theta}_{i+1})\prod_{j=1}^{m}p(\boldsymbol{x}_{i}^{(j)}|\boldsymbol{\theta}_{i+1})$</li> -->
 					<li>Metropolis-Hastings ratio:
-						<br/> $\begin{multline} \min\left(1,\frac{p_{\epsilon}(\boldsymbol{\theta}_{i+1},\{\boldsymbol{x}_{i+1}\}_{1:m}|\boldsymbol{y})q_{i}(\boldsymbol{\theta}_{i+1},\boldsymbol{\theta}_{i})\prod_{j=1}^{m}p(\boldsymbol{x}_{i}^{(j)}|\boldsymbol{\theta}_{i})}{p_{\epsilon}(\boldsymbol{\theta}_{i},\{\boldsymbol{x}_{i}\}_{1:m}|\boldsymbol{y})q_{i}(\boldsymbol{\theta}_{i},\boldsymbol{\theta}_{i+1})\prod_{j=1}^{m}p(\boldsymbol{x}_{i+1}^{(j)}|\boldsymbol{\theta}_{i+1})}\right)=\\
+						<br/>$\begin{multline} \min\left(1,\frac{p_{\epsilon}(\boldsymbol{\theta}_{i+1},\{\boldsymbol{x}_{i+1}\}_{1:m}|\boldsymbol{y})q_{i}(\boldsymbol{\theta}_{i+1},\boldsymbol{\theta}_{i})\prod_{j=1}^{m}p(\boldsymbol{x}_{i}^{(j)}|\boldsymbol{\theta}_{i})}{p_{\epsilon}(\boldsymbol{\theta}_{i},\{\boldsymbol{x}_{i}\}_{1:m}|\boldsymbol{y})q_{i}(\boldsymbol{\theta}_{i},\boldsymbol{\theta}_{i+1})\prod_{j=1}^{m}p(\boldsymbol{x}_{i+1}^{(j)}|\boldsymbol{\theta}_{i+1})}\right)=\\
 						\min\left(1,\frac{\sum_{j=1}^{m}\mathrm{I}_{\epsilon,\boldsymbol{y}}(\boldsymbol{x}_{i+1}^{(j)})q_{i}(\boldsymbol{\theta}_{i+1},\boldsymbol{\theta}_{i})p(\boldsymbol{\theta}_{i+1})}{\sum_{j=1}^{m}\mathrm{I}_{\epsilon,\boldsymbol{y}}(\boldsymbol{x}_{i}^{(j)})q_{i}(\boldsymbol{\theta}_{i},\boldsymbol{\theta}_{i+1})p(\boldsymbol{\theta}_{i})}\right)\label{eq:mh_ratio_without_likelihood}
 						\end{multline}$
 					</li>
@@ -518,6 +545,7 @@ w_{i}(\boldsymbol{z}_{i}) & =w_{i-1}(\boldsymbol{z}_{i-1})\frac{p_{i}(\boldsymbo
 			</section>
 
 			<section>
+				<h2>Potential problem</h2>
 				<ul>
 					<li class="fragment">Need to generate many samples</li>
 					<li class="fragment">Attempt at reducing the number of samples generated: Moores et. al. (2014)</li>
