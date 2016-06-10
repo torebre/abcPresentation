@@ -87,12 +87,29 @@
 									<span style="color:blue">Prior</span>: Prior knowledge</li>
 							</ul>
 						</div>
+
+<!--
+						<div class="fragment fade-in" width="640" height="480" style="position:absolute;top:0;left:0;" data-fragment-index="3">
+							<ul>
+								<li>$p(\boldsymbol{\theta}|\boldsymbol{y})\propto \color{red} p(\boldsymbol{y}|\boldsymbol{\theta})\color{blue}p(\boldsymbol{\theta})$</li>
+								<li></li>
+								<li></li>
+								<li>
+									<span style="color:red">Likelihood</span>: Model of data
+								</li>
+								<li>
+									<span style="color:blue">Prior</span>: Prior knowledge</li>
+									<li>$\mathrm{E}(h(\boldsymbol{\theta)}|\boldsymbol{y})=\int h(\boldsymbol{\theta})p(\boldsymbol{\theta}|\boldsymbol{y})d\boldsymbol{\theta}$</li>
+							</ul>
+						</div>
 					</div>
+-->
 			</section>
 
 			<section>
 				<h2>Posterior</h2>
 				<ul>
+					<li class="fragment">$\mathrm{E}(h(\boldsymbol{\theta)}|\boldsymbol{y})=\int h(\boldsymbol{\theta})p(\boldsymbol{\theta}|\boldsymbol{y})d\boldsymbol{\theta}$</li>
 					<li class="fragment">Potentially difficult to evaluate</li>
 					<li class="fragment">Many methods exist for approximating a distribution</li>
 					<li class="fragment"><img src="figures/sample_approximations.png" /></li>
@@ -307,7 +324,7 @@
 					<li>Del Moral et. al. (2006)</li>
 					<li class="fragment">Key point is that the underlying probability space is the same through the weight updates</li>
 					<li class="fragment">Proposal distributions set up using kernels:<br/>
-						$g(\boldsymbol{x}_{i})=\int K_{i}(\boldsymbol{x}_{i-1},\boldsymbol{x}_{i})g(\boldsymbol{x}_{i-1})d\boldsymbol{x}_{i-1}$
+						$g_{i}(\boldsymbol{x}_{i})=\int K_{i}(\boldsymbol{x}_{i-1},\boldsymbol{x}_{i})g_{i-1}(\boldsymbol{x}_{i-1})d\boldsymbol{x}_{i-1}$
 					</li>
 					<li class="fragment">Another key point: To avoid having to calculate integral or costly pointwise approximation, what is called backward kernels are introduced</li>
 				</ul>
@@ -327,9 +344,9 @@
 			<section>
 				<h2>Optimal backward kernel</h2>
 				<ul>
-					<li>$L(\boldsymbol{x}_{i},\boldsymbol{x}_{i-1})=\frac{g(\boldsymbol{x}_{i-1})K(\boldsymbol{x}_{i-1},\boldsymbol{x}_{i})}{g(\boldsymbol{x}_{i})}$</li>
+					<li>$L(\boldsymbol{x}_{i},\boldsymbol{x}_{i-1})=\frac{g_{i-1}(\boldsymbol{x}_{i-1})K(\boldsymbol{x}_{i-1},\boldsymbol{x}_{i})}{g_{i}(\boldsymbol{x}_{i})}$</li>
 					<li>Optimal in sense of minimum variance of unormalised weights</li>
-					<li class="fragment">Difficulty in computing marginals: $g(\boldsymbol{x}_{i})$</li>
+					<li class="fragment">Difficulty in computing marginals: $g_{i}(\boldsymbol{x}_{i})$</li>
 					<li class="fragment">In the algorithm here: Instead approximate optimal backward kernel with an MCMC kernel</li>
 				</ul>
 			</section>
@@ -456,6 +473,7 @@ w_{i}(\boldsymbol{z}_{i}) & =w_{i-1}(\boldsymbol{z}_{i-1})\frac{p_{i}(\boldsymbo
 					<ul>
 						<li>Trying two different statistics</li>
 						<li>In all cases a time series of length 100 is generated, and this is used as the observation</li>
+						<li>$\theta_{1}=0.6$ and $\theta_{2}=0.2$</li>
 					</ul>
 				</section>
 
@@ -564,10 +582,10 @@ w_{i}(\boldsymbol{z}_{i}) & =w_{i-1}(\boldsymbol{z}_{i-1})\frac{p_{i}(\boldsymbo
 				history: true,
 
 				math: {
-					mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
-					// Switch to the following line if off-line and need to render math symbols
-					//mathjax: 'http://localhost:8000/js/MathJax/MathJax.js',
-					config: 'TeX-AMS_HTML-full' // See http://docs.mathjax.org/en/latest/config-files.html
+					//mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+					Switch to the following line if off-line and need to render math symbols
+					mathjax: 'http://localhost:8000/js/MathJax/MathJax.js',
+					//config: 'TeX-AMS_HTML-full' // See http://docs.mathjax.org/en/latest/config-files.html
 				},
 
 
